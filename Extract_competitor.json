@@ -1,0 +1,475 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        80,
+        300
+      ],
+      "id": "7dda1402-f8c7-4450-b1ba-8ed17dd618ef",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        500
+      ],
+      "id": "04255718-fb6e-43c9-aa1d-af0b1a8fc21b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1a49eeef-ec4b-43ec-a9d5-50544dd05072",
+              "name": "url",
+              "value": "={{ $json[\"URL \"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -180,
+        480
+      ],
+      "id": "98d80961-03ea-4a80-a254-8f80669e455e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1040,
+        460
+      ],
+      "id": "656f7f32-4627-4f5f-a71f-e0a193f05fe4",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "503e97d9-df9c-4681-b3e9-66d0f2e8d098",
+      "name": "Done"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs",
+          "mode": "list",
+          "cachedResultName": "TEMPLATE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1200818572,
+          "mode": "list",
+          "cachedResultName": "Competitor URLs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs/edit#gid=1200818572"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Analysed ",
+              "lookupValue": "no"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -840,
+        460
+      ],
+      "id": "3cacd581-2b8a-4e62-8378-092767919c01",
+      "name": "Competitor URLs",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -520,
+        460
+      ],
+      "id": "e3b8e5dd-e8be-42b0-893c-14a07719629e",
+      "name": "Loop Over URLs"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "openai/gpt-4o-mini-search-preview",
+          "mode": "list",
+          "cachedResultName": "OPENAI/GPT-4O-MINI-SEARCH-PREVIEW"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are part of a professional SEO team. \n\nYour job is to analyse competitors sitemaps, to help your team come up with a content and keyword strategy. \n\nTo do so you go through each blog post URL in the competitors sitemap, and identify the following: \n\n- Topic: The topic of the blog post \n- Keywords: The 3 top SEO keywords in the blog which are related to the competitors line of business. Identify a blend of long tail and short tail keywords. The keyword must be directly present in the competitors blog.\n- Summary: A concise dotpoint summary of what the blog post was about. This should be short and every dot point should capture a different subtopic within the blog. \n\nOnce you have identified the above details you format it into a nice table with the following columns: \n\n1. Topic \n2. Keywords \n3. Summary \n\nYour output must only be the table and nothing else. \n\nThe competitor is a Dental company with the following services (lines of business): \n\nDental clean \nTeeth whitening \n\n\nBelow is 1 of their blog URLs extracted from their sitemap. Research and analyse the URL and create the table as instructed: \n\n{{ $json.url }}\n\n\nYour output must follow the table format example: \n\n\n| Topic | Keywords | Summary |\n|------------------------------------------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|\n| Symptoms Indicating the Need for Wisdom Teeth Removal | wisdom teeth removal, impacted wisdom teeth, dental pain, swollen gums, jaw stiffness | - Defines wisdom teeth as third molars that emerge in late teens or early twenties.<br>- Explains common issues like impaction due to lack of space.<br>- Highlights symptoms such as persistent pain, jaw stiffness, and swollen gums.<br>- Describes pericoronitis as an infection from trapped food and bacteria.<br>- Recommends consulting a dentist if experiencing any of these signs. |\n| How to Take Care of Your Dental Implants | dental implant care, oral hygiene, peri-implantitis prevention, smoking cessation, regular dental check-ups | - Emphasizes the importance of implant maintenance to avoid peri-implantitis.<br>- Recommends using soft-bristled toothbrushes.<br>- Advises flossing with tools designed for implants.<br>- Highlights smoking as a risk to gum and implant health.<br>- Stresses the need for regular dental check-ups and cleanings. |\n| Consequences of Not Removing Impacted Wisdom Teeth | impacted wisdom teeth, swelling and infection, dental pain, teeth crowding, wisdom teeth removal | - Explains risks of impacted wisdom teeth including infection and swelling.<br>- Describes complications like cysts, tumors, and jaw pain.<br>- Details how wisdom teeth can misalign or crowd other teeth.<br>- Warns of long-term dental issues if left untreated.<br>- Urges timely removal to prevent more serious complications. |\n\nDon't output anything else.\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        320,
+        300
+      ],
+      "id": "f4c0e477-c22f-49b7-b973-c448dabb0b9e",
+      "name": "Analyse",
+      "credentials": {
+        "openAiApi": {
+          "id": "XwgmCUqysJ7r7szM",
+          "name": "openrouter"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawTable = $input.first().json.message.content;\n\n// Split into rows and filter empty lines\nconst rows = rawTable.split('\\n').filter(row => row.trim() !== '');\n\n// Extract headers (first row)\nconst headers = rows[0]\n  .split('|')\n  .slice(1, -1)\n  .map(h => h.trim());\n\n// Process data rows (skip second separator row)\nconst jsonData = [];\nfor (let i = 2; i < rows.length; i++) {\n  const columns = rows[i]\n    .split('|')\n    .slice(1, -1)\n    .map(c => c.trim());\n  \n  jsonData.push({\n    [headers[0]]: columns[0],\n    [headers[1]]: columns[1],\n    [headers[2]]: columns[2].replace(/<br>/g, '\\n') // Convert <br> to newlines\n  });\n}\n\nreturn jsonData;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        300
+      ],
+      "id": "df91f905-bd68-49b0-9a81-b9990c622bc2",
+      "name": "Reformat"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs",
+          "mode": "list",
+          "cachedResultName": "TEMPLATE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1948864833,
+          "mode": "list",
+          "cachedResultName": "Competitor Analysis ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs/edit#gid=1948864833"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "URL ": "={{ $json.url }}",
+            "Topic": "={{ $json.Topic }}",
+            "Keywords": "={{ $json.Keywords }}",
+            "Summary ": "={{ $json.Summary }}"
+          },
+          "matchingColumns": [
+            "URL "
+          ],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Keywords",
+              "displayName": "Keywords",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary ",
+              "displayName": "Summary ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "URL ",
+              "displayName": "URL ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1340,
+        500
+      ],
+      "id": "bb6d5904-4778-473d-9720-5ded9e3f1051",
+      "name": "Add to Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs",
+          "mode": "list",
+          "cachedResultName": "TEMPLATE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1i_PiLTHFbJ21h6FgfSVQHQK129Bt7cp51P5k9vw_tFs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1560913856,
+          "mode": "list",
+          "cachedResultName": "Competitor URLs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1rlNGxomRcZ2eCf69EXU3dZza9MbYopHi9xdosN15qZ4/edit#gid=1560913856"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Analysed ": "Yes",
+            "URL ": "={{ $json[\"URL \"] }}"
+          },
+          "matchingColumns": [
+            "URL "
+          ],
+          "schema": [
+            {
+              "id": "URL ",
+              "displayName": "URL ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Analysed ",
+              "displayName": "Analysed ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1560,
+        500
+      ],
+      "id": "e08dd457-2bbe-43b5-9003-013967ae6e1b",
+      "name": "Check Off URL",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Analyse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Add to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Competitor URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor URLs": {
+      "main": [
+        [
+          {
+            "node": "Loop Over URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over URLs": {
+      "main": [
+        [
+          {
+            "node": "Done",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyse": {
+      "main": [
+        [
+          {
+            "node": "Reformat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reformat": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Check Off URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Off URL": {
+      "main": [
+        [
+          {
+            "node": "Loop Over URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "345050cac701de4cb0653b7d9c3e1c2de1b6e0d1797751f5757e5f23e1e6a28e"
+  }
+}
