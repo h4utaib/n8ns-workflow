@@ -1,0 +1,4386 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "4e7b223b-36b1-455a-b60a-0f5d0b04c374",
+      "typeVersion": 1.1,
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        1360,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Create Article structure\n",
+        "height": 451,
+        "width": 767,
+        "color": 2
+      },
+      "id": "7c29596c-23ba-4510-9da2-f5df4128ed09",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        9680,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Get all internal links\n",
+        "height": 271,
+        "width": 1287,
+        "color": 2
+      },
+      "id": "b0ee590c-8ce3-4ab7-9cd6-69673f895c40",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3140,
+        20
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Generate image for each chapter and save to Drive",
+        "height": 531,
+        "width": 2667,
+        "color": 2
+      },
+      "id": "91601494-4f80-45a9-998a-ce64189c3a0e",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        11400,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Combine and finalize the article\n",
+        "height": 431,
+        "width": 987,
+        "color": 2
+      },
+      "id": "a40da12c-f371-4618-8d5a-845c40424372",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        14200,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Publish article to website\n",
+        "height": 431,
+        "width": 347,
+        "color": 2
+      },
+      "id": "54d89651-fede-489f-9dc2-b4f628b0d5d8",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16260,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Set featured image for the article\n",
+        "height": 431,
+        "width": 1007,
+        "color": 2
+      },
+      "id": "55bf1df6-a458-46c8-8fa6-dfca823e7cc6",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16980,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "resize",
+        "dataPropertyName": "=data",
+        "width": 800,
+        "height": 800,
+        "options": {
+          "fileName": "={{ $('Split Out Chapters').item.json.image.file_name }}",
+          "format": "webp"
+        }
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        12980,
+        500
+      ],
+      "id": "1990b21e-07a6-4e3a-a7f6-7cacae4e1b03",
+      "name": "Resize Image"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        11540,
+        480
+      ],
+      "id": "871b3fe1-ee64-49e0-9df0-cca358b00ffb",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "content": "## Generate featured image and save to Drive",
+        "height": 451,
+        "width": 1667,
+        "color": 2
+      },
+      "id": "47dda3d2-ec5c-40d2-a394-625ec6d66fd0",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        11400,
+        1800
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        13860,
+        700
+      ],
+      "id": "0b8f7e01-9400-491a-8cec-cd3fb0c2195d",
+      "name": "Wait1",
+      "webhookId": "f30d683c-cfdb-4ef1-849e-8e67a3e3dca2"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        12840,
+        1940
+      ],
+      "id": "857cb6c2-b6e1-4875-a287-21a77bb3afb2",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        13640,
+        700
+      ],
+      "id": "3bcb7d68-db1e-4bb6-8832-1d43b97429de",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "name": "research_tool",
+        "description": "Call this tool to do research. The input should be a topic.",
+        "workflowId": {
+          "__rl": true,
+          "value": "536RiZdGosJPvO6g",
+          "mode": "list",
+          "cachedResultName": "Perplexity"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        3440,
+        740
+      ],
+      "id": "e7fc323e-a795-4237-a531-42f4f0b5f8ba",
+      "name": "Research Tool"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"title\": \"string\",\n  \"subtitle\": \"string\",\n  \"introduction\": \"string\",\n  \"slug\": \"string\",\n  \"google_excerpt\": \"string\",\n  \"google_meta_description\": \"string\",\n  \"tags\": \"string\",\n  \"chapters\": [\n    {\n      \"chapter_title\": \"string\",\n      \"image\": {\n        \"image_prompt\": \"string\",\n        \"file_name\": \"string\",\n        \"caption\": \"string\",\n        \"alt_text\": \"string\"\n      }\n    }\n  ],\n  \"conclusion\": \"string\",\n  \"image\": {\n    \"image_prompt\": \"string\",\n    \"file_name\": \"string\",\n    \"caption\": \"string\",\n    \"alt_text\": \"string\"\n  },\n  \"cta\": \"string\",\n  \"cta_url\": \"string\",\n  \"company_offering\": \"string\",\n  \"categories\": [\"number\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        10120,
+        660
+      ],
+      "id": "e7e14ecf-4fb6-428e-be2d-c8afb0f671d4",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"topic\": {\n      \"type\": \"string\"\n    },\n    \"research_overview\": {\n      \"type\": \"string\"\n    },\n    \"chapters\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"chapter_title\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        3620,
+        720
+      ],
+      "id": "9b2d656a-9bad-4193-9e50-ef4a0c6b0ad6",
+      "name": "Structured Output Parser4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## Topic\n- Provide the topic: `{{ $('Settings').first().json.Topic }}`.\n\n## Research Overview\n- Provide a comprehensive, detailed, and thorough research overview about the topic: `{{ $('Settings').first().json.Topic }}`.\n- Include all key aspects from the research.\n- Integrate specific details, numerical data, technical terms, and any important insights from the research.\n- Avoid overly brief summaries; ensure that each point is fully explained and substantiated.\n\n## Subtopics\n- Identify exactly {{ $('Settings').first().json['Number Of Chapters'] }} subtopics that directly relate to the main topic.\n- For each subtopics should accurately capture the essence of the chapter.\n- **Each subtopic title must explicitly reference or incorporate the main topic `{{ $('Settings').first().json.Topic }}`** to ensure a clear and direct link to the overall subject.\n- Each subtopics should cover a distinct aspect of the research, ensuring that the entire scope of the topic is represented with depth and clarity.\n\n## Output Detail and Depth\n- Ensure that the research overview is exhaustive, capturing all important details from the research content provided.\n- Your analysis should be sufficiently long and detailed, addressing each segment (technological, economic, geopolitical, and societal) with in-depth explanations and supporting details.\n- Each chapter should reflect the multifaceted nature of the main topic and include a chapter title that clearly demonstrates its connection to `{{ $('Settings').first().json.Topic }}`.\n\n## Formatting Requirements\n- Your output must be in valid JSON format, following the structure below exactly:\n  ```json\n  {\n    \"topic\": \"Your main topic here\",\n    \"research_overview\": \"A comprehensive and detailed overview of the research findings, including all relevant details, technical terms, and in-depth analysis...\",\n    \"chapters\": [\n      {\n        \"chapter_title\": \"Chapter Title that explicitly references the main topic\"\n      }\n      // Include exactly the specified number of chapters.\n    ]\n  }\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a researcher with access to advanced research tools. Your task is to search the internet using the provided keywords and return the full, unabridged research output. Follow these instructions carefully:\n\n## Complete and Detailed Output:\n   - Return the full research result including every detail, section, and technical nuance.\n   - Do not shorten, summarize, or omit any parts of the research. Include all numerical data, technical terms, section headers, lists, and analysis as found.\n\n## Accuracy:\n   - Return the exact research result provided by your research tool. Do not modify or paraphrase the content.\n   - Your response should be as detailed as the research source, reflecting every aspect of the findings.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        3360,
+        500
+      ],
+      "id": "a2a607dd-faf0-4738-b26e-f4d6af51844b",
+      "name": "Initial Research",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "content": "## Initial research",
+        "height": 491,
+        "width": 947,
+        "color": 2
+      },
+      "id": "81e110aa-21c8-450a-94b6-e1aad73bc7ed",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3140,
+        420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Create Drive folder to save",
+        "height": 251,
+        "width": 507,
+        "color": 2
+      },
+      "id": "9a41c63c-6515-4293-987b-667cd2e54d0f",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        10560,
+        400
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Save To Google Spreadsheet\n",
+        "height": 431,
+        "width": 567,
+        "color": 2
+      },
+      "id": "d181de4f-dbf9-4d60-bb99-b34d60ab7495",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        18140,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## Instructions\n\nBased on the initial research:\n  `{{ $('Initial Research').first().json.output.research_overview }}`\n\nWrite an article about **{{ $('Settings').first().json.Topic }}** that targets **{{ $('Settings').first().json['Target Audience'] }}** in a **{{ $('Settings').first().json.Style }}** writing style. The article should have **{{ $('Settings').first().json['Number Of Chapters'] }}** chapters and a maximum word count of **{{ $('Settings').first().json['Max Word Count'] }}**.\n\nHere are subtopics, each subtopic will develop into a chapter:\n{{ $('Initial Research').first().json.output.chapters.map(c => `\"chapter_title\":\"${c.chapter_title}\"`).join('\\n')  }}\n\n**Important:** Every chapter must clearly and explicitly relate back to the overall topic. Each chapter should build on the main narrative and avoid generic or tangential subjects.\n\n### Title and Subtitle\nBased on the initial research, write an **engaging title** and a **concise subtitle** that reflect the topic and hint at the integrated content throughout the article.\n\n### Introduction\nCraft an introduction of suitable number of words** that introduces the topic, establishes its relevance, and sets the stage for the detailed chapters. The introduction must hint at how each chapter will contribute to understanding the topic holistically.\n\n- **Avoid phrases** like:\n  - \"In this article\"\n  - \"In the fast-paced world\"\n  - \"Transformative\"\n\n### Slug\nCreate a **short, SEO-friendly URL slug**:\n- Ensure it contains the **SEO keyword phrase**.\n- Use **dashes (-)** to separate words.\n\n### Google Excerpt\nWrite a **Google-friendly excerpt** (up to **160 characters**):\n- Use an **active voice**.\n- Include the **target key phrase**.\n\n### Google Meta Description\nBased on the article content:\n- Limit to **156 characters**.\n- Use an **active voice** and make it **actionable**.\n- Include the **target key phrase**.\n\n### Chapters\nCreate detailed chapter content that remains tightly integrated with the overall article narrative:\n\n- **Structure**:\n  - For each chapter, provide a descriptive title that is **based on** the corresponding subtopic title.\n  - Chapters must be presented in an array field called **chapters**, with the following fields:\n    - `chapter_title`\n    - `image`\n  - Each chapter's title and subsequent content should be logically connected to the central theme, ensuring no chapter appears out of sync with the article’s focus.\n\n- **Markdown Formatting**:\n  - Use **bold**, *italic*, and _underline_ styles where appropriate.\n  - Include **lists** and **numbered lists** as needed.\n  \n- **Image Details** for Each Chapter:\n  - **Image Prompt**: Provide a vivid and detailed description of the image that ties directly to the chapter’s focus within the context of **{{ $('Settings').first().json.Topic }}**.\n  - **File Name**: Use a descriptive file name that reflects the chapter content (without an extension).\n  - **Caption**: Write a succinct summary of the image content, ensuring it reinforces the chapter's relevance.\n  - **Alt Text**: Provide an accessibility-focused description of the image.\n\n### Conclusion\nwrite a well-crafted conclusion with an appropriate word count** summarizing the article and leaving the reader with a final takeaway.\n\n### Call-to-Action (CTA) and Company Offering\n- **CTA**: At the end of the article, include a compelling call-to-action message that motivates readers to take the next step: {{ $('Settings').first().json.CTA }}\n- **About Company**: Include a detailed description of the company: {{ $('Settings').first().json['About Company'] }}\n\n### Categories\n- **Categories**: Include a list of the categories: {{ $('Aggregate Categories').first().json.categories.map(c => `\"id\":${c.id},\"name\":\"${c.name}\",\"description\":\"${c.description}\"`).join('\\n') }}\n---\n\n## Image Details for Article Cover\nThe article should include a **featured image object** with the following fields:\n\n- **Image Prompt**: A vivid and detailed description of the image reflecting the article's content and sentiment. \n- **File Name**: A descriptive file name for the cover image (without an extension).\n- **Caption**: A succinct summary of the cover image content.\n- **Alt Text**: An accessibility-focused description of the cover image.\n\n**Requirements** for the Cover Image:\n- **Aspect Ratio**: 16:9\n- Must be **relevant** to the article's content and sentiment.\n- Contain **rich details** and reflect the text content in a **photo-realistic style**.\n- Exclude any text other than the DALL-E 3 prompt.\n\n---\n\n### Output Format: JSON\nYour output must be in valid JSON format, following the structure below exactly:\n```json\n{\n  \"title\": \"The engaging headline of your article that grabs attention and encapsulates the main message.\",\n  \"subtitle\": \"A concise summary that complements the title and provides a clear insight into the article's focus.\",\n  \"introduction\": \"A compelling introduction of the appropriate word count that sets the stage by introducing the topic, context, and significance, drawing readers in from the start.\",\n  \"slug\": \"A short, SEO-friendly URL slug (3-5 words) that incorporates the SEO keyword phrase and uses dashes (-) to separate words.\",\n  \"google_excerpt\": \"A succinct, Google-friendly excerpt of up to 160 characters, written in an active voice and including the target key phrase.\",\n  \"google_meta_description\": \"A precise meta description of up to 156 characters that is actionable, written in an active voice, and includes the target key phrase.\",\n\"tags\": \"A list of 5–10 descriptive tags for categorization and improved searchability.\",\n  \"chapters\": [\n    {\n      \"chapter_title\": \"A descriptive chapter title that clearly conveys the chapter’s focus and explicitly links back to the overall topic, based on the corresponding subtopic title.\",\n      \"image\": {\n        \"image_prompt\": \"A vivid and detailed description of the image to visually represent the chapter content.\",\n        \"file_name\": \"A descriptive file name for the chapter image (without file extension).\",\n        \"caption\": \"A brief caption summarizing the content and purpose of the image.\",\n        \"alt_text\": \"An accessibility-focused description of the image for screen readers.\"\n      }\n    }\n  ],\n  \"conclusion\": \"A concise conclusion of the appropriate word count that summarizes the article, reinforces the key insights, and leaves the reader with a final takeaway.\",\n  \"image\": {\n    \"image_prompt\": \"A vivid and detailed description of the cover image that reflects the article's overall content and sentiment.\",\n    \"file_name\": \"A descriptive file name for the cover image (without file extension).\",\n    \"caption\": \"A succinct caption summarizing the cover image’s content.\",\n    \"alt_text\": \"An accessibility-focused description of the cover image for users with visual impairments.\"\n  },\n  \"cta\": \"A compelling call-to-action message that motivates readers to take the next step based on the article's insights.\",\n  \"about_company\": \"A detailed description of the company’s offering that explains its value and benefits to the target audience.\",\n\"categories\": return an array of only category ids(dont include name and description) including any of potential **Categories** id that category name and description are relevant to the article title and content. If there is none of potential matching categories, return an array with only one element {{ [$('Settings').first().json.Category] }}\n}\n",
+        "hasOutputParser": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        9860,
+        480
+      ],
+      "id": "8eccb9d6-1edc-439d-bc80-6e975580c51d",
+      "name": "Blog Planner",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        3280,
+        720
+      ],
+      "id": "960cefcf-e80b-4104-a327-d5611eac6a4b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        9780,
+        660
+      ],
+      "id": "a1c67415-fb36-4045-a0ec-96864d3860a0",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fdd24a9b-649b-4088-b085-da0be99f3d86",
+              "name": "Topic",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Topic'] }}",
+              "type": "string"
+            },
+            {
+              "id": "d0a2f78f-a45e-43aa-b275-dfe27df8c1ca",
+              "name": "Have Deeper Research",
+              "value": "={{  $('When Executed by Another Workflow').item.json[\"Have Deeper Research\"]  }}",
+              "type": "string"
+            },
+            {
+              "id": "faae7063-fb8b-4ff7-9295-b7f366940650",
+              "name": "Website",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Website'].replace('https:','').replaceAll('/','') }}",
+              "type": "string"
+            },
+            {
+              "id": "9579a7f2-1a4e-45b7-8cd7-ef249073798d",
+              "name": "Style",
+              "value": "={{ $('When Executed by Another Workflow').item.json.Style }}",
+              "type": "string"
+            },
+            {
+              "id": "bc04c672-b093-47ed-84a3-c22eee22445c",
+              "name": "Target Audience",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Target Audience'] }}",
+              "type": "string"
+            },
+            {
+              "id": "0dafb0ac-5735-4243-84cc-85e787697892",
+              "name": "Max Word Count",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Max Word Count'] }}",
+              "type": "number"
+            },
+            {
+              "id": "3bab3dcd-e18d-4b22-9c86-a8e9b60ea5c3",
+              "name": "Number Of Chapters",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Number Of Chapters'] }}",
+              "type": "number"
+            },
+            {
+              "id": "01cad8f8-d09f-4189-9a1b-90b859408144",
+              "name": "Number Of Subchapters",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Number Of Subchapters'] }}",
+              "type": "string"
+            },
+            {
+              "id": "1575eee8-6b01-4d0f-8304-68d4d541f0f7",
+              "name": "Category",
+              "value": "={{ $('When Executed by Another Workflow').item.json.Category }}",
+              "type": "string"
+            },
+            {
+              "id": "191105bb-4f7e-4b4f-bab7-95fa1f858c43",
+              "name": "CTA",
+              "value": "={{ $('When Executed by Another Workflow').item.json['CTA'] }}",
+              "type": "string"
+            },
+            {
+              "id": "d1368f97-9249-4bb6-9c5c-f3185b7ef9eb",
+              "name": "About Company",
+              "value": "={{ $('When Executed by Another Workflow').item.json['About Company'] }}",
+              "type": "string"
+            },
+            {
+              "id": "f6e4ce2b-6d29-4ca8-9b91-6236701d71b5",
+              "name": "Sitemap Xml",
+              "value": "={{ $('When Executed by Another Workflow').item.json['Sitemap Xml'].replace('https://','') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        520
+      ],
+      "id": "3b4e161c-be18-493d-ba86-d95b57684afb",
+      "name": "Settings"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ",
+          "mode": "list",
+          "cachedResultName": "Deeper Research v2 Updated",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1545927563,
+          "mode": "list",
+          "cachedResultName": "Create Topic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit#gid=1545927563"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "Status": "In Progress"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Have Deeper Research",
+              "displayName": "Have Deeper Research",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Style",
+              "displayName": "Style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target Audience",
+              "displayName": "Target Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Max Word Count",
+              "displayName": "Max Word Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number Of Chapters",
+              "displayName": "Number Of Chapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Number Of Subchapters",
+              "displayName": "Number Of Subchapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CTA",
+              "displayName": "CTA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "About Company",
+              "displayName": "About Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sitemap Xml",
+              "displayName": "Sitemap Xml",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1700,
+        520
+      ],
+      "id": "9fd94fdd-770c-4b11-bfeb-85aa24f7182e",
+      "name": "Google Sheets In Progress Topic",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Research keywords & Generate text for each chapter\n",
+        "height": 1291,
+        "width": 4267,
+        "color": 2
+      },
+      "id": "74e7cd1c-798a-4a3e-b8c4-83a238b9f35d",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4880,
+        20
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "name": "research_tool",
+        "description": "Call this tool to do research. The input should be a chapter.",
+        "workflowId": {
+          "__rl": true,
+          "value": "536RiZdGosJPvO6g",
+          "mode": "list",
+          "cachedResultName": "Perplexity"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7520,
+        560
+      ],
+      "id": "4a9911fd-fb4d-4673-9a42-c478f64baf20",
+      "name": "Research Tool1"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        8460,
+        360
+      ],
+      "id": "4df3c71d-be82-462e-930b-14e80cba045f",
+      "name": "Wait2",
+      "webhookId": "c1f21020-852f-4065-8be2-e0dd548fbfea"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"chapter_title\": {\n      \"type\": \"string\"\n    },\n    \"subchapter_title\": {\n      \"type\": \"string\"\n    },\n    \"subchapter_content\": {\n      \"type\": \"string\"\n    }\n  }\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        8240,
+        540
+      ],
+      "id": "d14fcef0-7134-400c-9d75-82aea438b21a",
+      "name": "Structured Output Parser3"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        7180,
+        540
+      ],
+      "id": "e0f7ebff-64ad-4b2d-8e9c-5623960158c5",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        7900,
+        540
+      ],
+      "id": "c09a6b25-2b51-487d-89e7-5c2831892b77",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "research_tool",
+        "description": "Call this tool to do research. The input should be a topic.",
+        "workflowId": {
+          "__rl": true,
+          "value": "536RiZdGosJPvO6g",
+          "mode": "list",
+          "cachedResultName": "Perplexity"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        5880,
+        440
+      ],
+      "id": "6292e7fd-dd70-4251-9571-dc5e3ec7aa3b",
+      "name": "Research Tool2"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"chapter\": {\n      \"type\": \"string\"\n    },\n    \"research_overview\": {\n      \"type\": \"string\"\n    },\n    \"subchapters\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"subchapter_title\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        6100,
+        360
+      ],
+      "id": "42062d0a-70a3-4581-b7a0-cb42834fa424",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        5700,
+        360
+      ],
+      "id": "aa9b88e1-84ed-4058-9da9-65f2ccfa276d",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        6280,
+        160
+      ],
+      "id": "7ff2836d-8b81-4f14-9805-2205d2205a39",
+      "name": "Wait3",
+      "webhookId": "fc38627e-d092-48bd-b232-8adde7ba6895"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        7640,
+        360
+      ],
+      "id": "2c0ecf0c-58c0-49d0-88c5-35dfabe7c791",
+      "name": "Wait4",
+      "webhookId": "6fb31a58-6247-441f-b5fe-373f3060b129"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "subchapters",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        8900,
+        360
+      ],
+      "id": "2035ce01-2d18-4e73-8deb-c51c5fe7efcf",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Settings').first().json['Have Deeper Research'].toLowerCase() }}",
+                    "rightValue": "yes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "5971965c-f33b-4d46-a533-2d691e0bed1c"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e2e97305-68a0-4aad-a78c-5d0b68f45844",
+                    "leftValue": "={{ $('Settings').first().json['Have Deeper Research'].toLowerCase() }}",
+                    "rightValue": "=yes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        5000,
+        480
+      ],
+      "id": "bff5bdef-c4ba-473f-94a6-bebdf070d743",
+      "name": "Switch Deep Research"
+    },
+    {
+      "parameters": {
+        "name": "research_tool",
+        "description": "Call this tool to do research. The input should be a topic.",
+        "workflowId": {
+          "__rl": true,
+          "value": "536RiZdGosJPvO6g",
+          "mode": "list",
+          "cachedResultName": "Perplexity"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        6060,
+        1100
+      ],
+      "id": "f6a7eb5b-d276-4ddf-b072-140fab0f3cc9",
+      "name": "Research Tool3"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        7180,
+        1040
+      ],
+      "id": "9af42cd0-68b1-4814-9367-824f8ca865b2",
+      "name": "Wait5",
+      "webhookId": "76c3315a-5570-401f-a378-000346a945b0"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"chapter_title\": {\n      \"type\": \"string\"\n    },\n    \"chapter_content\": {\n      \"type\": \"string\"\n    }\n  }\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        6920,
+        1060
+      ],
+      "id": "1d1d4868-cc4c-4b10-86a5-960d2d6801c8",
+      "name": "Structured Output Parser5"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        5720,
+        1100
+      ],
+      "id": "9725c32b-9d55-4d28-a6f5-40f398b98db1",
+      "name": "OpenAI Chat Model5",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {
+          "maxRetries": 2
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        6580,
+        1060
+      ],
+      "id": "65ff2be6-48e2-4610-9399-dedd0f5c097f",
+      "name": "OpenAI Chat Model6",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": "={{ $('Settings').first().json['Number Of Chapters'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        5460,
+        140
+      ],
+      "id": "2fb5ae1e-065d-4a53-97af-53a1e7cc20b6",
+      "name": "Loop Over Chapter",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "batchSize": "={{ $('Settings').first().json['Number Of Subchapters'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        6920,
+        340
+      ],
+      "id": "3931d751-3771-43b0-a820-a37abeb036ef",
+      "name": "Loop Over Sub-Chapter",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "35ac7b9f-e5e2-49a7-8746-d152ee516851",
+              "name": "chapter_title",
+              "value": "={{ $('Wait2').first().json.output.chapter_title }}",
+              "type": "string"
+            },
+            {
+              "id": "afb442ec-1a4f-4433-a262-a62bc691720f",
+              "name": "subchapters",
+              "value": "={{ $json.subchapters }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        8900,
+        560
+      ],
+      "id": "d9571719-fefb-416c-bf3d-9200eba2aafc",
+      "name": "Subchapters Output"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5f88929b-81fb-4bb9-a38f-468ed695a510",
+              "name": "chapter_title",
+              "value": "={{ $json.chapter_title }}",
+              "type": "string"
+            },
+            {
+              "id": "50d59353-5526-4c8f-b361-b0f2c4dcb7f8",
+              "name": "subchapters",
+              "value": "={{ $json.subchapters }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        8900,
+        140
+      ],
+      "id": "b15cbfb2-f544-4d85-aff3-6b55ee02af1b",
+      "name": "Final Chapters Output"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        5460,
+        860
+      ],
+      "id": "b37e68f0-f2c5-4a73-aa13-02288e9124b2",
+      "name": "Loop Over Chapters2"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3860,
+        500
+      ],
+      "id": "679f3dcd-4085-491b-9742-eef95ef8087c",
+      "name": "Wait6",
+      "webhookId": "7cd7547a-b412-431a-a935-e68246ca8015"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        4660,
+        480
+      ],
+      "id": "45ed2353-659c-4264-b3d7-95f9f42d4042",
+      "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        6300,
+        880
+      ],
+      "id": "63cb7a43-e282-4f2b-b6e8-9321fbea93b1",
+      "name": "Wait7",
+      "webhookId": "b812db31-c4ae-459c-89e7-83c4a92e51f9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## Main chapter\n- Provide the main chapter: `{{ $json.chapter_title }}`.\n\n## Subchapters\n- Identify exactly `{{ $('Settings').first().json['Number Of Subchapters'] >= 2 ? $('Settings').first().json['Number Of Subchapters'] : 2 }}` subchapters that directly relate to the main chapter.\n- For each subchapters should accurately capture the essence of the main chapter.\n- **Each subchapter title must explicitly reference or incorporate the main chapter `{{ $json.chapter_title }}`** to ensure a clear and direct link to the overall subject.\n- Each subchapters should cover a distinct aspect of the research, ensuring that the entire scope of the chapter is represented with depth and clarity.\n\n## Output Detail and Depth\n- Your analysis should be sufficiently long and detailed, addressing each segment (technological, economic, geopolitical, and societal) with in-depth explanations and supporting details.\n- Each subchapter should reflect the multifaceted nature of the main chapter and include a subchapter title that clearly demonstrates its connection to `{{ $json.chapter_title }}`.\n\n## Formatting Requirements\n- Your output must be in valid JSON format, following the structure below exactly:\n  ```json\n  {\n    \"chapter\": \"Your main chapter title here\",\n    \"subchapters\": [\n      {\n        \"subchapter_title\": \"Subchapter Title that explicitly references the main chapter\"\n      }\n      // Include exactly the specified number of subchapters.\n    ]\n  }\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a researcher with access to advanced research tools. Your task is to search the internet using the provided keywords and return the full, unabridged research output. Follow these instructions carefully:\n\n## Complete and Detailed Output:\n   - Return the full research result including every detail, section, and technical nuance.\n   - Do not shorten, summarize, or omit any parts of the research. Include all numerical data, technical terms, section headers, lists, and analysis as found.\n\n## Accuracy:\n   - Return the exact research result provided by your research tool. Do not modify or paraphrase the content.\n   - Your response should be as detailed as the research source, reflecting every aspect of the findings.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        5800,
+        160
+      ],
+      "id": "15bf34de-7e21-4ba0-9273-f7d53aad8040",
+      "name": "Chapter Research",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 3
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic:   `{{ $json.subchapter_title }}`",
+        "options": {
+          "systemMessage": "=You are a researcher with access to advanced research tools. Your task is to search the internet using the provided topic and return the full, unabridged research output. Follow these instructions carefully:\n\n## Complete and Detailed Output:\n   - Return the full research result including every detail, section, and technical nuance.\n   - Do not shorten, summarize, or omit any parts of the research. Include all numerical data, technical terms, section headers, lists, and analysis as found.\n\n## Accuracy:\n   - Return the exact research result provided by your research tool. Do not modify or paraphrase the content.\n   - Your response should be as detailed as the research source, reflecting every aspect of the findings.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        7260,
+        360
+      ],
+      "id": "238c0016-bbf6-440e-a5dc-d568b520056f",
+      "name": "Subchapter Researcher",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## Task\nWrite a detailed, cohesive subchapter for a chapter of an article based on the provided research materials and context. The subchapter should flow naturally without segmenting the content into many short or shallow subtopics. Additionally, craft a subchapter title that is inspired by the given subchapter title—but make it descriptive, engaging, and interesting, while strongly tying back to the overall chapter title.\n\n---\n\n## Input Data\n\n- **Overall Article Topic:**  \n  `{{ $('Initial Research').first().json.output.topic }}`\n\n- **Initial Research Overview:**  \n  `{{ $('Initial Research').first().json.output.research_overview }}`\n\n- **Chapter title:** \n  `{{ $('Loop Over Chapter').item.json.chapter_title }}`\n\n- **Subchapter title:** \n  `{{ $('Loop Over Sub-Chapter').item.json.subchapter_title }}`\n\n- **Detailed Research Results for the SubChapter:**  \n  `{{ $json.output }}`\n\n- **Blog URLs for Internal Links:**  \n  *(Use these only if relevant, each URL once)*  \n  ```\n{{ $('Aggregate Internal Links').first().json.internal_links.join(\"\\n\") }}\n  ```\n\n- **Word Count Setting:**  \n  Each chapter should be approximately around `{{ Math.round($('Settings').first().json['Max Word Count'] * 0.8 / $('Settings').first().json['Number Of Chapters'] /  $('Settings').first().json['Number Of Subchapters']) }}` words long.\n\n---\n\n## Writing Guidelines\n\n### Subchapter Title\n- **Descriptive and Engaging:** Develop a subchapter title that is descriptive, engaging, and interesting.\n- **Tie Back to the Article Topic and Chapter Title:** Ensure the title makes a strong connection with the overall article topic and chapter title to provide coherence and context.\n\n### Content and Structure\n- **Comprehensive Narrative:** Develop a unified, in-depth narrative that covers the subchapter topic thoroughly. Instead of breaking the subchapter into multiple short subtopics (e.g., several H3 headings), aim for a fluid, integrated discussion.\n- **Minimal Subheadings:** If internal headings are necessary, limit them to at most one or two broad sections. The content should not be segmented into many shallow subtopics.\n- **Seamless Integration:** Ensure the subchapter integrates smoothly with both previous and following subchapter title. Do not include standalone introductions or conclusions.\n\n### Style and Formatting\n- **Markdown Formatting:** Use Markdown for emphasis (e.g., **bold**, *italic*) and to separate major sections if absolutely needed. Avoid overusing headings like H3 that break the narrative flow.\n- **Concise Sentences:** Aim to keep most sentences under 20 words for clarity.\n- **Plain Text Output:** Produce plain text with Markdown formatting only—no extra JSON structures or additional headers beyond what is specified.\n\n### Prohibited Content\n- Avoid generic phrases such as “In today’s fast-paced world” or similar clichés.\n- Do not mention any specific product or service names.\n\n### Context Consideration\n{{ $itemIndex > 0 ? \"- Previous sub-chapter title: \" + $('Split Out Subchapters').all()[$itemIndex - 1].json.subchapter_title : \"\" }}  \n{{ $itemIndex < $input.all().length - 1 ? \"- Next sub-chapter title: \" + $('Split Out Subchapters').all()[$itemIndex + 1].json.subchapter_title : \"\" }}  \n- Ensure the subchapter content is coherent with both previous and following subchapters and does not repeat concepts already discussed.\n\n---\n\n### Internal Linking\n- Review the provided blog URLs.\n- Select one URL that is most relevant to the chapter’s content and embed it as an internal hyperlink with meaningful anchor text derived from the URL.\n- Use each URL only once; if none are relevant or the URL has already been added in the previous or following chapters, do not include any links.\n\n### External Linking\n- Select one url of external resource in **Detailed Research Results for the Chapter:** and include in the end of the related content.\n- Use each URL only once.\n\n---\n\n## Output Format\n\nReturn the chapter as a valid JSON object with exactly two keys:\n\n```json\n{\n  \"chapter_title\": \"<Descriptive, engaging chapter title tied to the overall article topic>\",\n  \"subchapter_title\": \"<Descriptive, engaging sub-chapter title tied to the chapter title and overall article topic>\",\n  \"subchapter_content\": \"<sub-chapter text formatted in Markdown>\"\n}\n```\n\n---\n\n## Final Note\n\nEnsure the sub chapter meets the specified word count (approximately around `{{ Math.round($('Settings').first().json['Max Word Count'] * 0.8 / $('Settings').first().json['Number Of Chapters'] /  $('Settings').first().json['Number Of Subchapters']) }}` words) and adheres to all the guidelines above. The chapter should be a cohesive, comprehensive narrative that avoids excessive segmentation into subtopics. Now, write the chapter accordingly.",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an expert copywriter."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        7980,
+        360
+      ],
+      "id": "14434922-523b-4e93-b5fa-ae6716c456de",
+      "name": "Subchapter Copywriter",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## Task\nWrite a detailed, cohesive chapter for an article based on the provided research materials and context. The chapter should flow naturally without segmenting the content into many short or shallow subtopics. Additionally, craft a chapter title that is inspired by the given subtopic title—but make it descriptive, engaging, and interesting, while strongly tying back to the overall article topic.\n\n---\n\n## Input Data\n\n- **Overall Article Topic:**  \n  `{{ $('Initial Research').first().json.output.topic }}`\n\n- **Initial Research Overview:**  \n  `{{ $('Initial Research').first().json.output.research_overview }}`\n\n- **Chapter title:** \n  `{{ $('Loop Over Chapters2').item.json.chapter_title }}`\n\n- **Detailed Research Results for the Chapter:**  \n  `{{ $json.output }}`\n\n- **Blog URLs for Internal Links:**  \n  *(Use these only if relevant, each URL once)*  \n  ```\n{{ $('Aggregate Internal Links').first().json.internal_links.join(\"\\n\") }}\n  ```\n\n- **Word Count Setting:**  \n  Each chapter should be approximately `{{ Math.round($('Settings').first().json['Max Word Count']) * 0.7 / $('Settings').first().json['Number Of Chapters'] }}` words long.\n\n---\n\n## Writing Guidelines\n\n### Chapter Title\n- **Descriptive and Engaging:** Develop a chapter title that is descriptive, engaging, and interesting.\n- **Tie Back to the Article Topic:** Ensure the title makes a strong connection with the overall article topic to provide coherence and context.\n\n### Content and Structure\n- **Comprehensive Narrative:** Develop a unified, in-depth narrative that covers the chapter topic thoroughly. Instead of breaking the chapter into multiple short subtopics (e.g., several H3 headings), aim for a fluid, integrated discussion.\n- **Minimal Subheadings:** If internal headings are necessary, limit them to at most one or two broad sections. The content should not be segmented into many shallow subtopics.\n- **Seamless Integration:** Ensure the chapter integrates smoothly with both previous and following chapters. Do not include standalone introductions or conclusions.\n\n### Style and Formatting\n- **Markdown Formatting:** Use Markdown for emphasis (e.g., **bold**, *italic*) and to separate major sections if absolutely needed. Avoid overusing headings like H3 that break the narrative flow.\n- **Concise Sentences:** Aim to keep most sentences under 20 words for clarity.\n- **Plain Text Output:** Produce plain text with Markdown formatting only—no extra JSON structures or additional headers beyond what is specified.\n\n### Prohibited Content\n- Avoid generic phrases such as “In today’s fast-paced world” or similar clichés.\n- Do not mention any specific product or service names.\n\n### Context Consideration\n{{ $itemIndex > 0 ? \"- Previous chapter title: \" + $('Split Out Main Chapters').all()[$itemIndex - 1].json.chapter_title : \"\" }}  \n{{ $itemIndex < $input.all().length - 1 ? \"- Next chapter title: \" + $('Split Out Main Chapters').all()[$itemIndex + 1].json.chapter_title : \"\" }}  \n- Ensure the chapter content is coherent with both previous and following chapters and does not repeat concepts already discussed.\n\n### Internal Linking\n- Review the provided blog URLs.\n- Select one URL that is most relevant to the chapter’s content and embed it as an internal hyperlink with meaningful anchor text derived from the URL.\n- Use each URL only once; if none are relevant or the URL has already been added in the previous or following chapters, do not include any links.\n\n### External Linking\n- Select one url of external resource in **Detailed Research Results for the Chapter:** and include in the end of the related content.\n- Use each URL only once.\n---\n\n## Output Format\n\nReturn the chapter as a valid JSON object with exactly two keys:\n\n```json\n{\n  \"chapter_title\": \"<Descriptive, engaging chapter title tied to the overall article topic>\",\n  \"chapter_content\": \"<Chapter text formatted in Markdown>\"\n}\n```\n\n---\n\n## Final Note\n\nEnsure the chapter meets the specified word count (approximately `{{ Math.round($('Settings').first().json['Max Word Count']) * 0.7 / $('Settings').first().json['Number Of Chapters'] }}` words) and adheres to all the guidelines above. The chapter should be a cohesive, comprehensive narrative that avoids excessive segmentation into subtopics. Now, write the chapter accordingly.",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an expert copywriter."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        6660,
+        880
+      ],
+      "id": "54b2f58c-7813-4031-b479-0d0331e3f251",
+      "name": "Chapter Copywriter",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Topic: {{ $json.chapter_title }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a researcher with access to advanced research tools. Your task is to search the internet using the provided topic and return the full, unabridged research output. Follow these instructions carefully:\n\n## Complete and Detailed Output:\n   - Return the full research result including every detail, section, and technical nuance.\n   - Do not shorten, summarize, or omit any parts of the research. Include all numerical data, technical terms, section headers, lists, and analysis as found.\n\n## Accuracy:\n   - Return the exact research result provided by your research tool. Do not modify or paraphrase the content.\n   - Your response should be as detailed as the research source, reflecting every aspect of the findings.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        5800,
+        880
+      ],
+      "id": "425e5a36-0e15-4941-bc70-77cc0c436a6a",
+      "name": "Main Chapter Researcher",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        9240,
+        480
+      ],
+      "id": "4a53e1df-a564-4c24-84b9-c388d1e94c98",
+      "name": "Merge Chapters"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ",
+          "mode": "list",
+          "cachedResultName": "Deeper Research v2 Updated",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2008081717,
+          "mode": "list",
+          "cachedResultName": "Final Blogs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit#gid=2008081717"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Mark Down": "={{ $('Final Article In Markdown').first().json.article }}",
+            "Html": "={{ $('FInal Article In HTML').first().json.article }}",
+            "Tags": "={{ $('Get Output').first().json.output.tags }}",
+            "SEO Meta Description": "={{ $('Get Output').first().json.output.google_meta_description }}",
+            "SEO Meta Title": "={{ $('Get Output').first().json.output.title }}",
+            "Slug": "={{ $('Get Output').first().json.output.slug }}",
+            "Excerpt": "={{ $('Get Output').first().json.output.google_excerpt }}",
+            "Final URL": "={{ $('Post On Wordpress').first().json.link }}",
+            "Topic Name": "={{ $('Settings').first().json.Topic }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Topic Name",
+              "displayName": "Topic Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Mark Down",
+              "displayName": "Mark Down",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Html",
+              "displayName": "Html",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tags",
+              "displayName": "Tags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Slug",
+              "displayName": "Slug",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "SEO Meta Title",
+              "displayName": "SEO Meta Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "SEO Meta Description",
+              "displayName": "SEO Meta Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Excerpt",
+              "displayName": "Excerpt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Final URL",
+              "displayName": "Final URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        18260,
+        500
+      ],
+      "id": "01120e4b-d0fc-4b5f-94a8-b021d5a68326",
+      "name": "Google Sheets Final Blog",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ",
+          "mode": "list",
+          "cachedResultName": "Deeper Research v2 Updated",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1545927563,
+          "mode": "list",
+          "cachedResultName": "Create Topic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit#gid=1545927563"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Done",
+            "row_number": "={{ $('Google Sheets In Progress Topic').first().json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Have Deeper Research",
+              "displayName": "Have Deeper Research",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Style",
+              "displayName": "Style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Target Audience",
+              "displayName": "Target Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Max Word Count",
+              "displayName": "Max Word Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Number Of Chapters",
+              "displayName": "Number Of Chapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Number Of Subchapters",
+              "displayName": "Number Of Subchapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "CTA",
+              "displayName": "CTA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "About Company",
+              "displayName": "About Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sitemap Xml",
+              "displayName": "Sitemap Xml",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        18480,
+        500
+      ],
+      "id": "df2607a9-45b6-4a02-98db-4b032551d3fc",
+      "name": "Google Sheets Status Update",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rdBpoI7m30pjKjsK",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8cada260-4cd5-4470-8dba-139cec531ddc",
+              "name": "output",
+              "value": "={{ $('Blog Planner').item.json.output }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10860,
+        480
+      ],
+      "id": "0453e61c-a96d-40f2-a1f0-c6fa327777c5",
+      "name": "Get Output"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.subchapters",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        6700,
+        160
+      ],
+      "id": "f33a3e95-eddc-4c36-beb7-503e7c8df143",
+      "name": "Split Out Subchapters"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8cada260-4cd5-4470-8dba-139cec531ddc",
+              "name": "output",
+              "value": "={{ $('Wait3').item.json.output }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6480,
+        160
+      ],
+      "id": "d65098b2-e6a5-4eae-af40-cc489d8b769c",
+      "name": "Get Subchapters Output"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3db2a3a4-d89e-4848-835c-1d6ac68419ac",
+              "name": "subchapter_title",
+              "value": "={{ $json.output.subchapter_title }}",
+              "type": "string"
+            },
+            {
+              "id": "25fbf572-7e57-4797-99ba-34fc1c8d560a",
+              "name": "subchapter_content",
+              "value": "={{ $json.output.subchapter_content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        8680,
+        360
+      ],
+      "id": "d821eaa3-b533-43fb-b19b-d6e9cf5461ac",
+      "name": "Get Title Chapter and Content"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3db2a3a4-d89e-4848-835c-1d6ac68419ac",
+              "name": "chapter_title",
+              "value": "={{ $json.output.chapter_title }}",
+              "type": "string"
+            },
+            {
+              "id": "25fbf572-7e57-4797-99ba-34fc1c8d560a",
+              "name": "chapter_content",
+              "value": "={{ $json.output.chapter_content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        8900,
+        860
+      ],
+      "id": "8daf6211-7b83-4662-b8d2-b44b4928312d",
+      "name": "Get Title Chapter And Content1"
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "={{ $json.output.title.replace(/ /g, \"_\") }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1-3UzAPyTkZBZ_PgiLOJEK2_0s8kX-DHr",
+          "mode": "list",
+          "cachedResultName": ".",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1-3UzAPyTkZBZ_PgiLOJEK2_0s8kX-DHr"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        10660,
+        480
+      ],
+      "id": "154eef2f-68db-4f43-8167-234860f4a942",
+      "name": "Create Drive Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "wErfgn5HWWTBzfZk",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.chapters",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        11180,
+        480
+      ],
+      "id": "b0c7c1b0-40ed-4839-9e5d-dcb32559da7e",
+      "name": "Split Out Chapters"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename=\"{{ $binary.data.fileName }}.{{ $binary.data.fileExtension }}\""
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "4bc0cfe1-dad4-47a8-ae6a-fa433b1417c7",
+      "name": "Upload Chapter Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        13200,
+        500
+      ],
+      "typeVersion": 4.1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/media/{{ $json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "alt_text",
+              "value": "={{ $('Split Out Chapters').first().json.image.alt_text }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $('Split Out Chapters').first().json.image.caption }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Split Out Chapters').first().json.image.caption }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $('Split Out Chapters').first().json.image.caption }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        13420,
+        500
+      ],
+      "id": "2b633305-95e5-4c3d-803d-43eccc5dfa43",
+      "name": "Update Image Meta Data",
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Split Out Chapters').item.json.image.file_name }}",
+        "driveId": {
+          "__rl": true,
+          "value": "0AKPPy6FuV32kUk9PVA",
+          "mode": "list",
+          "cachedResultName": "AI Automation Pro",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/0AKPPy6FuV32kUk9PVA"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Drive Folder').item.json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        12980,
+        720
+      ],
+      "id": "2ba07276-ab6f-4aed-98f0-6de85de7bae6",
+      "name": "Upload Chapter Images To Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "wErfgn5HWWTBzfZk",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "resize",
+        "width": 800,
+        "height": 800,
+        "options": {
+          "fileName": "={{ $('Blog Planner').first().json.output.image.file_name }}",
+          "format": "webp"
+        }
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        12540,
+        1840
+      ],
+      "id": "627932df-ec95-49a4-84c3-9641b3a21625",
+      "name": "Resize Featured Image"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Blog Planner').first().json.output.image.file_name }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $('Create Drive Folder').first().json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        12540,
+        2060
+      ],
+      "id": "96690f2b-3da9-4fa2-9580-853dce8b174d",
+      "name": "Upload Featured Image To Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "wErfgn5HWWTBzfZk",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b4b4c8d5-9acb-4b8d-be85-7cb70954da7d",
+              "leftValue": "={{ $('Settings').first().json.Topic }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "34b9e9d2-c5a3-4878-a12a-f5ad87b43efa",
+              "leftValue": "={{ $('Settings').first().json['Have Deeper Research'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "a5e0892b-6f70-46d4-81fc-e33321dc87b9",
+              "leftValue": "={{ $('Settings').first().json.Website }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "30633e71-924d-4f0f-9ea8-f2d4a119ae51",
+              "leftValue": "={{ $('Settings').first().json.Style }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "48f46993-3214-48b6-a7d1-54a23c0cad48",
+              "leftValue": "={{ $('Settings').first().json['Target Audience'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5599e8bf-4ed9-4316-9b2d-3eea6f74e9a3",
+              "leftValue": "={{ $('Settings').first().json['Max Word Count'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "4b177d23-d6e7-4444-8bbb-fe4d5064da03",
+              "leftValue": "={{ $('Settings').first().json['Number Of Chapters'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "ecb3a6a6-a19a-40b5-8026-2b26cca361de",
+              "leftValue": "={{ $('Settings').first().json['Category'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "bacc646c-cec0-43d4-80ca-4704b1629753",
+              "leftValue": "={{ $('Settings').first().json['Sitemap Xml'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5657375a-42db-4bfd-89b8-0a1241c4474f",
+              "leftValue": "={{ $('Settings').first().json['CTA'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2900,
+        520
+      ],
+      "id": "699de7f1-5e6b-4599-83d8-e3d8a155f143",
+      "name": "Check Inputs"
+    },
+    {
+      "parameters": {
+        "url": "=https://{{ $('Settings').first().json.Website }}/post-sitemap.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3340,
+        100
+      ],
+      "id": "b4172334-f07d-4f0a-9e53-893892c40ded",
+      "name": "Get Post Sitemap"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        3560,
+        100
+      ],
+      "id": "fa1116ee-b79d-4543-8360-eaddb70b712b",
+      "name": "Get XML File"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urlset.url",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3780,
+        100
+      ],
+      "id": "fe0551b4-2453-4590-ab78-e124217f1612",
+      "name": "Split Out Links"
+    },
+    {
+      "parameters": {
+        "maxItems": 50
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        4000,
+        100
+      ],
+      "id": "05e25bcc-1570-4470-9c9c-c5c0f8fe770e",
+      "name": "Limit Internal Links"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "loc",
+              "renameField": true,
+              "outputFieldName": "internal_links"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        4220,
+        100
+      ],
+      "id": "eca41e3c-deda-41ae-9984-db8465a4becf",
+      "name": "Aggregate Internal Links"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8cada260-4cd5-4470-8dba-139cec531ddc",
+              "name": "output",
+              "value": "={{ $('Initial Research').first().json.output }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4220,
+        500
+      ],
+      "id": "3b950919-12f7-4d04-ad59-12382f1bb139",
+      "name": "Get Initial Research Data"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.chapters",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        4440,
+        500
+      ],
+      "id": "270a854d-aedd-4561-9095-f29660f215a9",
+      "name": "Split Out Main Chapters"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        9460,
+        480
+      ],
+      "id": "30aa6e37-4eb1-485a-a36c-4fc8013fd30b",
+      "name": "Aggregate All Chapters"
+    },
+    {
+      "parameters": {
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/categories",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2140,
+        520
+      ],
+      "id": "585b5bf9-7059-4c29-8dcb-f91b2c3bb35f",
+      "name": "HTTP Request Get Categories"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0428b375-a6c2-432d-b349-0ff716e4ff3e",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "1153e9d7-3c67-4b1b-8bad-46d7253c05b8",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "cf41a123-b25a-4fc1-8419-e540a6f95e42",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2360,
+        520
+      ],
+      "id": "f5b7b6fa-ac51-445d-a352-c2bc6d311e7d",
+      "name": "Edit Fields Categories"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "categories",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2580,
+        520
+      ],
+      "id": "60b9d5ab-b449-4c59-a281-7a01f6f61193",
+      "name": "Aggregate Categories"
+    },
+    {
+      "parameters": {
+        "folderId": "={{ $('Create Drive Folder').first().json.id }}",
+        "title": "={{ $('Create Drive Folder').first().json.name }} "
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        15460,
+        460
+      ],
+      "id": "84bfa177-4932-4efb-af80-f047ed8bfdb0",
+      "name": "Create Doc",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "9eIymDgVyzOvIYy8",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Save to Doc\n",
+        "height": 431,
+        "width": 567,
+        "color": 2
+      },
+      "id": "3ebd604b-a35a-4899-b433-60655712cf0c",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        15320,
+        380
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "var article = \"\";\n\n// Introduction\n// Deeper Research Format\nif($('Settings').first().json['Have Deeper Research'].toLowerCase() === \"yes\"){\n  article += \"## Introduction\\n\" \n}\n\narticle += $('Blog Planner').first().json.output.introduction;\narticle += \"\\n\";\n\n// Deeper Research Table of Contents\nif($('Settings').first().json['Have Deeper Research'].toLowerCase() === \"yes\"){\n  article += \"## Tables of Contents\\n\";\n  var chapterIndex = 0;\n  for (const item of $input.all()) {\n    article += \"### Chapter \" + (chapterIndex + 1) + \": \" + $('Merge Chapters').all()[chapterIndex].json.chapter_title + \"\\n\";\n    var subchapterIndex = 0;\n  // Add the chapter content\n    for (const content of $('Merge Chapters').all()[chapterIndex].json.subchapters){\n        article += (subchapterIndex + 1) + \". \" + content.subchapter_title + \"\\n\";\n        subchapterIndex++;\n    }\n  chapterIndex++;\n  }\n}\n\nvar index = 0;\nfor (const item of $input.all()) {\n  // Add the chapter title as a Markdown level 2 header\n  if($('Settings').first().json['Have Deeper Research'].toLowerCase() === \"yes\"){\n    article += \"## Chapter \" + (index + 1) + \": \" + $('Merge Chapters').all()[index].json.chapter_title + \"\\n\";\n  } else {\n    article += \"## \" + $('Merge Chapters').all()[index].json.chapter_title + \"\\n\";\n  }\n    // Insert the chapter image if it exists (using Markdown image syntax)\n  if (item.json.source_url) {\n    article += `![${item.json.title.rendered}](${item.json.source_url})\\n`;\n  }\n\n  if($('Settings').first().json['Have Deeper Research'].toLowerCase() !== \"yes\"){\n    // Add the chapter content\n    article += $('Merge Chapters').all()[index].json.chapter_content;\n    article += \"\\n\";\n  }else\n  {\n    var i = 0;\n  // Add the chapter content\n    for (const content of $('Merge Chapters').all()[index].json.subchapters){\n        article += \"### \" + (i + 1) + \". \" + content.subchapter_title;\n        article += \"\\n\";\n        article += content.subchapter_content;\n        article += \"\\n\";\n        i++;\n    }\n  }\n  index++;\n}\n\n// Conclusion\narticle += \"## Final thoughts\\n\";\narticle += $('Blog Planner').first().json.output.conclusion;\narticle += \"\\n\";\n\n// Call-to-Action (CTA)\narticle += $('Blog Planner').first().json.output.cta + \"\\n\";\n\n// About Company\narticle += \"## About us\\n\";\narticle += $('Blog Planner').first().json.output.about_company\n\nreturn [\n  {\n    \"article\": article\n  }\n];\n"
+      },
+      "id": "16dab69c-6962-4e14-a8dc-a8aa6ea33161",
+      "name": "Combine Into Article",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        14340,
+        460
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cd9e8fee-8386-4410-8cb4-5ef83c265d52",
+              "name": "article",
+              "value": "={{ $json.article }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        14560,
+        460
+      ],
+      "id": "9af42ff6-22dc-46fc-a592-de19777c819d",
+      "name": "Final Article In Markdown"
+    },
+    {
+      "parameters": {
+        "mode": "markdownToHtml",
+        "markdown": "={{ $json.article }}",
+        "destinationKey": "article",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        14780,
+        460
+      ],
+      "id": "636355e2-b1cd-4e17-a414-0e31e5a24b06",
+      "name": "Markdown To HTML"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b6877f11-541d-4ac5-8556-f10374322f2a",
+              "name": "article",
+              "value": "={{ $json.article }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        15000,
+        460
+      ],
+      "id": "e6013a97-3e1e-4422-99da-e6830302a4c3",
+      "name": "FInal Article In HTML"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Final Article In Markdown').item.json.article }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        15680,
+        460
+      ],
+      "id": "40911b5a-3792-41b7-808b-46eb853ae630",
+      "name": "Save Texts To Doc",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "9eIymDgVyzOvIYy8",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "title": "={{ $('Blog Planner').first().json.output.title }}",
+        "additionalFields": {
+          "content": "={{ $('FInal Article In HTML').first().json.article }}",
+          "slug": "={{ $('Blog Planner').first().json.output.slug }}",
+          "status": "publish",
+          "categories": [
+            12
+          ],
+          "tags": "="
+        }
+      },
+      "id": "54833200-81de-4e5f-84d1-b47a34b6a6e5",
+      "name": "Post On Wordpress",
+      "type": "n8n-nodes-base.wordpress",
+      "position": [
+        16380,
+        480
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        16740,
+        500
+      ],
+      "id": "68a0614d-aeab-4cfd-b913-31efa12a1880",
+      "name": "Wait Featured Image"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/media",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Disposition",
+              "value": "=attachment; filename=\"{{ $('Blog Planner').first().json.output.image.file_name }}.{{ $binary.data.fileExtension }}\""
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "data",
+        "options": {}
+      },
+      "id": "801ae445-0a01-4302-9404-2275b4206b7a",
+      "name": "Upload Featured Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        17100,
+        500
+      ],
+      "typeVersion": 4.1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/media/{{ $json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "alt_text",
+              "value": "={{ $('Blog Planner').first().json.output.image.alt_text }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $('Blog Planner').first().json.output.image.caption }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Blog Planner').first().json.output.image.caption }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $('Blog Planner').first().json.output.image.caption }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        17320,
+        500
+      ],
+      "id": "9196791b-8667-4ca8-9c1f-27c3798cebaa",
+      "name": "Update Featured Image Meta Data",
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/posts/{{ $('Post On Wordpress').first().json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "featured_media",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "03916374-6a58-49c8-a3c3-a8a2309189da",
+      "name": "Set Featured Image For Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        17540,
+        500
+      ],
+      "typeVersion": 4.1,
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/posts/{{ $('Post On Wordpress').first().json.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "excerpt",
+              "value": "={{ $('Blog Planner').first().json.output.google_excerpt }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        17760,
+        500
+      ],
+      "id": "199a8008-fdd2-46f2-afda-d1404c82c2d6",
+      "name": "Set Excerpt",
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        11760,
+        1280
+      ],
+      "id": "c54f31d9-7607-45c4-a67f-c2f7f6928c15",
+      "name": "Loop Over Tags"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c6c8d17-ddab-4f72-83cb-e1a5fec5578c",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        12860,
+        1460
+      ],
+      "id": "61f02666-10a5-4073-b729-7edca926476d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.tags",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        11540,
+        1280
+      ],
+      "id": "c19c3009-d55b-4cfa-8fce-3594d51e93b1",
+      "name": "Split Out Tags"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/tags",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $('Loop Over Tags').item.json['output.tags'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        12420,
+        1300
+      ],
+      "id": "1b6ef5a6-582d-4b35-93ed-52b53c3d080d",
+      "name": "HTTP Request Create Tag",
+      "alwaysOutputData": true,
+      "credentials": {
+        "wordpressApi": {
+          "id": "6tx47P3lLOAAeSpP",
+          "name": "Wordpress account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e72df8b6-aca2-46fc-8597-88e7de5dddb6",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        12200,
+        1280
+      ],
+      "id": "e81bbc4b-effe-4ab8-aca0-0be6a21dbb4e",
+      "name": "If Tag Already Exists"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e72df8b6-aca2-46fc-8597-88e7de5dddb6",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        12640,
+        1280
+      ],
+      "id": "bc2455c4-7165-44ee-8d52-4f33364e377c",
+      "name": "If New Tag"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "50d23f79-6905-4588-933f-36a69fd9d3fd",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        12860,
+        1260
+      ],
+      "id": "52e1d4fc-23ec-4da4-8f58-b081ce153270",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "id",
+              "renameField": true,
+              "outputFieldName": "tags"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        11980,
+        1100
+      ],
+      "id": "e2e21029-0208-4fdb-9a58-7ec5597b0693",
+      "name": "Aggregate Tag IDs"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "942bb7c3-b228-4750-bd49-928d2b8671f4",
+              "name": "tags",
+              "value": "={{ $('Aggregate Tag IDs').first().json.tags }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        13300,
+        1100
+      ],
+      "id": "6de865e2-960a-491a-a7d7-9802de680bd2",
+      "name": "Edit Fields Final Tags"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        16040,
+        480
+      ],
+      "id": "ceb67659-4311-4ba2-8dd9-98bda6ef5a4e",
+      "name": "Merge Tags"
+    },
+    {
+      "parameters": {
+        "content": "## Create And Get Tag IDs",
+        "height": 631,
+        "width": 2127,
+        "color": 2
+      },
+      "id": "eaf1f4e8-cb88-4bd8-ae31-46b12506a02b",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        11400,
+        1040
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://{{ $('Settings').first().json.Website }}/wp-json/wp/v2/tags",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "slug",
+              "value": "={{ $('Loop Over Tags').item.json['output.tags'].toLowerCase().replaceAll(' ', '-') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11980,
+        1300
+      ],
+      "id": "145e0ec7-b640-4c22-8337-495270bea37f",
+      "name": "HTTP Request Get Categories1",
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "b64_json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        12200,
+        1940
+      ],
+      "id": "23b4f59e-d844-4e6e-942e-8b5360d6bb70",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"model\": \"gpt-image-1\",\n\"prompt\": \"Generate a photographic image to be used as the cover image for the article titled {{ $('Blog Planner').first().json.output.title }}, {{ $('Blog Planner').first().json.output.subtitle }}. This is the prompt for the image: {{ $('Blog Planner').first().json.output.image.image_prompt }}, photography, realistic. Do not show any texts in the image.\",\n\"size\": \"1536x1024\",\n\"n\": 1\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11540,
+        1940
+      ],
+      "id": "81b1fd0e-e793-4d06-a650-10ae427d8463",
+      "name": "HTTP Request Open AI Image 1",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        11760,
+        1940
+      ],
+      "id": "1c18c1f9-97de-46ad-aa8f-f14a6d03f238",
+      "name": "Split Out Feature Image"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "272e8fce-d228-44e6-bc9a-e177fd9cebe7",
+              "leftValue": "={{ $json.b64_json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        11980,
+        1940
+      ],
+      "id": "8a5e6ca0-4a6d-41e7-b370-b26673664d26",
+      "name": "Filter Feature Image Data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"model\": \"gpt-image-1\",\n\"prompt\": \"Generate a photographic image to be used as the cover image for the chapter {{ $json.chapter_title }} in the article titled {{ $('Blog Planner').first().json.output.title }}. This is the prompt for the image: {{ $json.image.image_prompt }}, photography, realistic. Do not show any texts in the image.\",\n\"size\": \"1536x1024\",\n\"n\": 1\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        11980,
+        500
+      ],
+      "id": "e7105cc5-edc4-451a-bcd1-c16a40d16e1d",
+      "name": "HTTP Request Open AI Image ",
+      "credentials": {
+        "openAiApi": {
+          "id": "WxfTdCdxu6cuzGma",
+          "name": "OpenAi Final"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        12200,
+        500
+      ],
+      "id": "c7064249-c75d-4d71-91ca-b0fffe69b41d",
+      "name": "Split Out Chapter Image"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "272e8fce-d228-44e6-bc9a-e177fd9cebe7",
+              "leftValue": "={{ $json.b64_json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        12420,
+        500
+      ],
+      "id": "3c99bca8-f6da-4c69-bae0-09dd69c11741",
+      "name": "Filter Chapter Image Data"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "b64_json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        12640,
+        500
+      ],
+      "id": "2c8af065-470c-4a44-9217-d59654461145",
+      "name": "Convert Data To File"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b043cc68-a129-4e84-a7c7-dfa1984cb986",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        10240,
+        480
+      ],
+      "id": "da017d17-cb3e-4254-ba3b-79bcdee7d439",
+      "name": "Check empty output",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "content": "## Select And Create New Topics In Loop",
+        "height": 471,
+        "width": 1207,
+        "color": 2
+      },
+      "id": "62238711-afb1-4b7c-8ffc-0e6aec4f62a5",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1580,
+        420
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets In Progress Topic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resize Image": {
+      "main": [
+        [
+          {
+            "node": "Upload Chapter Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Combine Into Article",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request Open AI Image ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Wait Featured Image",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "Initial Research",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Blog Planner",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser4": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Initial Research",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initial Research": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Blog Planner": {
+      "main": [
+        [
+          {
+            "node": "Check empty output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Initial Research",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Blog Planner",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request Get Categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets In Progress Topic": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Tool1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Subchapter Researcher",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Get Title Chapter and Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser3": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Subchapter Copywriter",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Subchapter Researcher",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Subchapter Copywriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Tool2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Chapter Research",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Chapter Research",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chapter Research",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Get Subchapters Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Subchapter Copywriter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Subchapters Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Deep Research": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Chapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Chapters2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Tool3": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Chapter Researcher",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Chapters2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser5": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Chapter Copywriter",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Chapter Researcher",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Chapter Copywriter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Chapter": {
+      "main": [
+        [
+          {
+            "node": "Final Chapters Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chapter Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Sub-Chapter": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Chapter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Subchapter Researcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subchapters Output": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Sub-Chapter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Chapters Output": {
+      "main": [
+        [
+          {
+            "node": "Merge Chapters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Chapters2": {
+      "main": [
+        [
+          {
+            "node": "Get Title Chapter And Content1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Main Chapter Researcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "Get Initial Research Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Switch Deep Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "Chapter Copywriter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chapter Research": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subchapter Researcher": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subchapter Copywriter": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chapter Copywriter": {
+      "main": [
+        [
+          {
+            "node": "Wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Chapter Researcher": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Chapters": {
+      "main": [
+        [
+          {
+            "node": "Aggregate All Chapters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Final Blog": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Status Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Output": {
+      "main": [
+        [
+          {
+            "node": "Split Out Chapters",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out Tags",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request Open AI Image 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Subchapters": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Sub-Chapter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Subchapters Output": {
+      "main": [
+        [
+          {
+            "node": "Split Out Subchapters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Title Chapter and Content": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Title Chapter And Content1": {
+      "main": [
+        [
+          {
+            "node": "Merge Chapters",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create Drive Folder": {
+      "main": [
+        [
+          {
+            "node": "Get Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Chapters": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Chapter Images": {
+      "main": [
+        [
+          {
+            "node": "Update Image Meta Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Image Meta Data": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Chapter Images To Drive": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Resize Featured Image": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Featured Image To Drive": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Check Inputs": {
+      "main": [
+        [
+          {
+            "node": "Get Post Sitemap",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Initial Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Post Sitemap": {
+      "main": [
+        [
+          {
+            "node": "Get XML File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get XML File": {
+      "main": [
+        [
+          {
+            "node": "Split Out Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Links": {
+      "main": [
+        [
+          {
+            "node": "Limit Internal Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit Internal Links": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Internal Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Internal Links": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Initial Research Data": {
+      "main": [
+        [
+          {
+            "node": "Split Out Main Chapters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Main Chapters": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aggregate All Chapters": {
+      "main": [
+        [
+          {
+            "node": "Blog Planner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Get Categories": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields Categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields Categories": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Categories": {
+      "main": [
+        [
+          {
+            "node": "Check Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Doc": {
+      "main": [
+        [
+          {
+            "node": "Save Texts To Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Into Article": {
+      "main": [
+        [
+          {
+            "node": "Final Article In Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Article In Markdown": {
+      "main": [
+        [
+          {
+            "node": "Markdown To HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown To HTML": {
+      "main": [
+        [
+          {
+            "node": "FInal Article In HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FInal Article In HTML": {
+      "main": [
+        [
+          {
+            "node": "Create Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Texts To Doc": {
+      "main": [
+        [
+          {
+            "node": "Merge Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post On Wordpress": {
+      "main": [
+        [
+          {
+            "node": "Wait Featured Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Featured Image": {
+      "main": [
+        [
+          {
+            "node": "Upload Featured Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Featured Image": {
+      "main": [
+        [
+          {
+            "node": "Update Featured Image Meta Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Featured Image Meta Data": {
+      "main": [
+        [
+          {
+            "node": "Set Featured Image For Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Featured Image For Post": {
+      "main": [
+        [
+          {
+            "node": "Set Excerpt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Excerpt": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Final Blog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Tags": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Tag IDs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request Get Categories1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Tags": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Create Tag": {
+      "main": [
+        [
+          {
+            "node": "If New Tag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Tag Already Exists": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request Create Tag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If New Tag": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Tag IDs": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields Final Tags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields Final Tags": {
+      "main": [
+        [
+          {
+            "node": "Merge Tags",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Tags": {
+      "main": [
+        [
+          {
+            "node": "Post On Wordpress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Get Categories1": {
+      "main": [
+        [
+          {
+            "node": "If Tag Already Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Resize Featured Image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Featured Image To Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Open AI Image 1": {
+      "main": [
+        [
+          {
+            "node": "Split Out Feature Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Feature Image": {
+      "main": [
+        [
+          {
+            "node": "Filter Feature Image Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Feature Image Data": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Open AI Image ": {
+      "main": [
+        [
+          {
+            "node": "Split Out Chapter Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Chapter Image": {
+      "main": [
+        [
+          {
+            "node": "Filter Chapter Image Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Chapter Image Data": {
+      "main": [
+        [
+          {
+            "node": "Convert Data To File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Data To File": {
+      "main": [
+        [
+          {
+            "node": "Resize Image",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Chapter Images To Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check empty output": {
+      "main": [
+        [
+          {
+            "node": "Create Drive Folder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Blog Planner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "row_number": 13,
+        "Topic": "Google AI Studio",
+        "Status": "To Do",
+        "Have Deeper Research": "No",
+        "Website": "aiautomationpro.org",
+        "Style": "informative",
+        "Target Audience": "business owners",
+        "Max Word Count": 500,
+        "Number Of Chapters": 2,
+        "Number Of Subchapters": 1,
+        "Category": 403,
+        "CTA": "Ready to elevate your business with cutting-edge automation? Contact AI Automation Pro Agency today and let our expert team guide you to streamlined success with n8n and AI-driven solutions!",
+        "About Company": "AI Automation Pro Agency is a forward-thinking consulting firm specializing in n8n workflow automation and AI-driven solutions. Our team of experts is dedicated to empowering businesses by streamlining processes, reducing operational inefficiencies, and accelerating digital transformation. By leveraging the flexibility of the open-source n8n platform alongside advanced AI technologies, we deliver tailored strategies that drive innovation and unlock new growth opportunities. Whether you’re looking to automate routine tasks or integrate complex systems, Minh Duc TV provides the expert guidance you need to stay ahead in today’s rapidly evolving digital landscape.",
+        "Sitemap Xml": "https://aiautomationpro.org/post-sitemap.xml"
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "345050cac701de4cb0653b7d9c3e1c2de1b6e0d1797751f5757e5f23e1e6a28e"
+  }
+}
