@@ -1,0 +1,496 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Select And Create New Topics In Loop",
+        "height": 511,
+        "width": 927,
+        "color": 2
+      },
+      "id": "db162de9-8d74-47b4-b326-0813cb0fca4b",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3880,
+        1640
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        3360,
+        1720
+      ],
+      "id": "2a5bb7bd-678b-4a89-9554-2c5a5e26d44b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ",
+          "mode": "list",
+          "cachedResultName": "Deeper Research v2 Updated",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1545927563,
+          "mode": "list",
+          "cachedResultName": "Create Topic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tkDzXLW9GjilF1M0h5v3oSrzQk8LY4PoofXm7I85BlQ/edit#gid=1545927563"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "To Do"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3640,
+        1720
+      ],
+      "id": "e96fc710-ef63-45af-9c26-879a1cfe98da",
+      "name": "Google Sheets Create Topics",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8JtUrUDItKslQ5gy",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Create Topic",
+        "formDescription": "All filled data will be saved into Google Spreadsheet",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Topic",
+              "placeholder": "AI Content Generation",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Have Deeper Research",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "No"
+                  },
+                  {
+                    "option": "Yes"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Website",
+              "placeholder": "yourwebsitedomain.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Style",
+              "placeholder": "Writing Style",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Target Audience",
+              "placeholder": "Reader",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Max Word Count",
+              "fieldType": "number",
+              "placeholder": "500",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Number Of Chapters",
+              "fieldType": "number",
+              "placeholder": "3",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Number Of Subchapters",
+              "fieldType": "number",
+              "placeholder": "1 (only relevant to Deeper Research)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Category ID",
+              "fieldType": "number",
+              "placeholder": "403",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "CTA",
+              "fieldType": "textarea",
+              "placeholder": "Ready to elevate your business with cutting-edge automation? Contact AI Automation Pro Agency today and let our expert team guide you to streamlined success with n8n and AI-driven solutions!",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "About Company",
+              "fieldType": "textarea",
+              "placeholder": "AI Automation Pro Agency is a forward-thinking consulting firm specializing in n8n workflow automation and AI-driven solutions.",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Sitemap Xml",
+              "placeholder": "https://yourwebsitedomain.com/post-sitemap.xml"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        3360,
+        1380
+      ],
+      "id": "71864852-9fee-4869-a3a5-35d29418c244",
+      "name": "On form submission",
+      "webhookId": "71187bfd-7c14-4c3f-8412-7384aad665a9"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "12WRp6-aYoQV5r_n1TFnb75HPrwKs_zEMT7tqijC3yzk",
+          "mode": "list",
+          "cachedResultName": "2nd Level Deeper Research - Create Topics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12WRp6-aYoQV5r_n1TFnb75HPrwKs_zEMT7tqijC3yzk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Create Topic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12WRp6-aYoQV5r_n1TFnb75HPrwKs_zEMT7tqijC3yzk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Topic": "={{ $json.Topic }}",
+            "Status": "To Do",
+            "Have Deeper Research": "={{ $json['Have Deeper Research'] }}",
+            "Website": "={{ $json.Website }}",
+            "Style": "={{ $json.Style }}",
+            "Target Audience": "={{ $json['Target Audience'] }}",
+            "Max Word Count": "={{ $json['Max Word Count'] }}",
+            "Number Of Chapters": "={{ $json['Number Of Chapters'] }}",
+            "Number Of Subchapters": "={{ $json['Number Of Subchapters'] }}",
+            "Category": "={{ $json['Category ID'] }}",
+            "CTA": "={{ $json.CTA }}",
+            "About Company": "={{ $json['About Company'] }}",
+            "Sitemap Xml": "={{ $json['Sitemap Xml'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Have Deeper Research",
+              "displayName": "Have Deeper Research",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Style",
+              "displayName": "Style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Target Audience",
+              "displayName": "Target Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Max Word Count",
+              "displayName": "Max Word Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Number Of Chapters",
+              "displayName": "Number Of Chapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Number Of Subchapters",
+              "displayName": "Number Of Subchapters",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CTA",
+              "displayName": "CTA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "About Company",
+              "displayName": "About Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sitemap Xml",
+              "displayName": "Sitemap Xml",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3640,
+        1380
+      ],
+      "id": "c6d43bd9-ea33-4ef7-94e0-f4980c127e8f",
+      "name": "Google Sheets Create Topic - Add New Topic",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rdBpoI7m30pjKjsK",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        4020,
+        1720
+      ],
+      "id": "778673a7-2cf4-4491-a3ae-de749e697317",
+      "name": "Loop Over Topics"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "mQSXzw5L5FF73EO3",
+          "mode": "list",
+          "cachedResultName": "MAin china"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        4280,
+        1920
+      ],
+      "id": "eb0bd79e-ff18-4852-84ad-4e38134a90f4",
+      "name": "Execute Workflow - Create A Topic"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        4500,
+        1920
+      ],
+      "id": "94f31939-79eb-4579-9257-20c2d755cf2e",
+      "name": "Wait",
+      "webhookId": "a5f81dbb-ff3f-49d1-9fcf-c7b360266af1"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Create Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Create Topics": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets Create Topic - Add New Topic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Topics": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Execute Workflow - Create A Topic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow - Create A Topic": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "345050cac701de4cb0653b7d9c3e1c2de1b6e0d1797751f5757e5f23e1e6a28e"
+  }
+}
